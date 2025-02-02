@@ -1,6 +1,6 @@
 const { Router } = require("express");
 
-const UsersController = require("../controllers/UsersControllers");
+const UsersController = require("../controllers/UsersController");
 const uploadConfig = require("../configs/upload");
 
 const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
