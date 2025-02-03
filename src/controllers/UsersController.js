@@ -13,7 +13,7 @@ class UsersController {
     );
 
     if (checkUserExists) {
-      throw new AppError("Este e-mail já está em uso.");
+      throw new AppError("This email is already in use.");
     }
 
     const hashedPassword = await hash(password, 8);
@@ -36,7 +36,7 @@ class UsersController {
     ]);
 
     if (!user) {
-      throw new AppError("Usuário não encontrado");
+      throw new AppError("User not found");
     }
 
     const userWithUpdateEmail = await database.get(
@@ -45,7 +45,7 @@ class UsersController {
     );
 
     if (userWithUpdateEmail && userWithUpdateEmail.id !== user.id) {
-      throw new AppError("Este email já etá em uso.");
+      throw new AppError("This email is already in use.");
     }
 
     user.name = name ?? user.name;
@@ -53,7 +53,7 @@ class UsersController {
 
     if (password && !old_password) {
       throw new AppError(
-        "Você precisa informar a senha antiga para definir a nova senha"
+        "You must inform  the current password to change for a new one."
       );
     }
 
@@ -61,7 +61,7 @@ class UsersController {
       const checkOldPassword = await compare(old_password, user.password);
 
       if (!checkOldPassword) {
-        throw new AppError("A senha antiga não confere.");
+        throw new AppError("The current password does not match.");
       }
 
       user.password = await hash(password, 8);
